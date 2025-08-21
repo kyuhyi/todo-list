@@ -17,16 +17,19 @@ app.get('/', (req, res) => {
 
 // Check if the API key is loaded
 if (!process.env.GOOGLE_API_KEY) {
-    console.error("GOOGLE_API_KEY is not set in the .env file.");
+    console.error("GOOGLE_API_KEY is not set in the environment variables.");
     // Don't exit in production, just log the warning
     if (process.env.NODE_ENV !== 'production') {
         process.exit(1);
     }
+} else {
+    console.log("GOOGLE_API_KEY is loaded successfully");
 }
 
 let genAI;
 if (process.env.GOOGLE_API_KEY) {
     genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+    console.log("Gemini AI initialized successfully");
 }
 
 app.post('/api/gemini', async (req, res) => {
