@@ -100,7 +100,23 @@ const log = $('#chatLog');
 function append(who, text){
   const div = document.createElement('div');
   div.className = 'msg';
-  div.innerHTML = `<span class="who">${who}:</span><span>${text.replace(/</g,'&lt;')}</span>`;
+  
+  // 텍스트 포맷팅
+  let formattedText = text.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  
+  // 줄바꿈 처리
+  formattedText = formattedText.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
+  
+  // 링크 처리
+  formattedText = formattedText.replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" class="chat-link">$1</a>');
+  
+  // 볼드 처리 (**텍스트**)
+  formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
+  // 번호 목록 처리
+  formattedText = formattedText.replace(/^(\d+\.|-)(\s+)/gm, '<br>$1$2');
+  
+  div.innerHTML = `<span class="who">${who}:</span><div class="msg-content">${formattedText}</div>`;
   log.appendChild(div); log.scrollTop = log.scrollHeight;
 }
 $('#chatForm').addEventListener('submit', async (e)=>{
@@ -109,13 +125,13 @@ $('#chatForm').addEventListener('submit', async (e)=>{
   if(!q) return;
   append('나', q); $('#chatInput').value = '';
   try{
-    const r = await fetch('/api/chat', {
+    const r = await fetch('/api/gemini', {
       method:'POST',
       headers:{ 'Content-Type':'application/json' },
-      body: JSON.stringify({ query:q })
+      body: JSON.stringify({ prompt:q })
     });
     const data = await r.json();
-    append('Gemini', data.answer || '(응답 없음)');
+    append('Gemini', data.response || '(응답 없음)');
   }catch(err){
     append('Gemini', '에러가 발생했어요. 잠시 후 다시 시도해주세요.');
   }
