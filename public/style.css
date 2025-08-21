@@ -1,149 +1,273 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
+
+:root {
+    --font-family: 'Noto Sans KR', sans-serif;
+    
+    /* Light Mode */
+    --bg-color: #F8F9FA;
+    --app-bg-color: #FFFFFF;
+    --text-color: #212529;
+    --subtext-color: #6C757D;
+    --border-color: #E9ECEF;
+    --primary-color: #007BFF;
+    --primary-hover: #0056b3;
+    --danger-color: #DC3545;
+    --danger-hover: #a71d2a;
+    --success-color: #28A745;
+    --todo-bg: #F8F9FA;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --chat-bg: #F1F3F5;
+    --bot-msg-bg: #E9ECEF;
+    --user-msg-bg: #007BFF;
+    --user-msg-text: #FFFFFF;
+}
+
+body.dark-mode {
+    /* Dark Mode */
+    --bg-color: #121212;
+    --app-bg-color: #1E1E1E;
+    --text-color: #E0E0E0;
+    --subtext-color: #A0A0A0;
+    --border-color: #333333;
+    --primary-color: #0d6efd;
+    --primary-hover: #0b5ed7;
+    --danger-color: #d9534f;
+    --danger-hover: #c9302c;
+    --success-color: #5cb85c;
+    --todo-bg: #2C2C2C;
+    --shadow-color: rgba(255, 255, 255, 0.05);
+    --chat-bg: #2A2A2A;
+    --bot-msg-bg: #363636;
+    --user-msg-bg: #0d6efd;
+    --user-msg-text: #FFFFFF;
+}
 
 body {
-    font-family: 'Noto Sans KR', sans-serif;
-    background-color: #f4f7f6;
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-color);
     margin: 0;
-    padding: 20px;
+    padding: 1rem;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.app-wrapper {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    color: #333;
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: calc(100vh - 2rem);
 }
 
-.app-container {
-    width: 100%;
-    max-width: 600px;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-    padding: 30px;
+.todo-container, .chat-container {
+    background-color: var(--app-bg-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-color);
+    padding: 1.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s;
 }
 
+.todo-container {
+    flex: 2;
+    overflow-y: auto;
+}
+
+.chat-container {
+    flex: 1;
+    height: 100%;
+}
+
+/* Header */
 header {
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+.header-top {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 20px;
-    margin-bottom: 20px;
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
-
 #logo {
     height: 40px;
-    margin-bottom: 10px;
 }
-
 header h1 {
-    font-size: 2em;
+    font-size: 1.75rem;
     font-weight: 700;
-    color: #2c3e50;
     margin: 0;
 }
+.theme-switcher {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
 
+/* Form */
 #todo-form {
     display: flex;
-    margin-bottom: 10px;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
 }
-
 #todo-input {
     flex-grow: 1;
-    padding: 12px 15px;
-    font-size: 1em;
-    border: 2px solid #ddd;
-    border-radius: 5px 0 0 5px;
-    transition: border-color 0.3s;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
 }
-
-#todo-input:focus {
-    outline: none;
-    border-color: #4a90e2;
+#todo-day, #todo-form button {
+    padding: 0 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    cursor: pointer;
 }
-
 #todo-form button {
-    padding: 12px 20px;
-    font-size: 1em;
-    font-weight: 700;
-    background-color: #4a90e2;
+    background-color: var(--primary-color);
     color: white;
-    border: none;
-    border-radius: 0 5px 5px 0;
-    cursor: pointer;
-    transition: background-color 0.3s;
+    border-color: var(--primary-color);
+    font-weight: 500;
 }
-
 #todo-form button:hover {
-    background-color: #357abd;
+    background-color: var(--primary-hover);
 }
 
-.gemini-feature {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+/* To-Do Lists */
+.todo-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    overflow-y: auto;
+    padding-bottom: 1rem;
 }
-
-#gemini-suggest-btn {
-    padding: 10px 20px;
-    font-size: 1em;
-    font-weight: 700;
-    background-color: #f2c94c;
-    color: #333;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    width: 100%;
+.todo-section h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 0.5rem;
 }
-
-#gemini-suggest-btn:hover {
-    background-color: #e0b840;
-}
-
-#todo-list {
+#today-list, #tomorrow-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-
-#todo-list li {
+#today-list li, #tomorrow-list li {
     display: flex;
     align-items: center;
-    padding: 15px;
-    background: #f9f9f9;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    transition: background-color 0.3s;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background-color: var(--todo-bg);
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
 }
-
-#todo-list li.completed span {
+#today-list li.completed span, #tomorrow-list li.completed span {
     text-decoration: line-through;
-    color: #aaa;
+    color: var(--subtext-color);
 }
-
-#todo-list li span {
+#today-list li span, #tomorrow-list li span {
     flex-grow: 1;
     cursor: pointer;
 }
-
-#todo-list li .delete-btn {
-    background: #e74c3c;
-    color: white;
+.edit-input {
+    flex-grow: 1;
+    padding: 0.25rem;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: var(--app-bg-color);
+    color: var(--text-color);
+}
+.todo-actions button {
+    background: none;
     border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
     cursor: pointer;
-    font-size: 0.9em;
-    transition: background-color 0.3s;
+    font-size: 1.1rem;
+    color: var(--subtext-color);
+}
+.todo-actions .delete-btn { color: var(--danger-color); }
+.todo-actions .alarm-btn { color: var(--success-color); }
+
+/* Chat */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+}
+.chat-header {
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+.chat-header h2 { margin: 0; font-size: 1.5rem; }
+.chat-header span { font-size: 0.9rem; color: var(--subtext-color); }
+.chat-box {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 0.5rem;
+    background-color: var(--chat-bg);
+    border-radius: 8px;
+}
+.message {
+    margin-bottom: 1rem;
+    max-width: 80%;
+}
+.message p {
+    padding: 0.75rem 1rem;
+    border-radius: 12px;
+    margin: 0;
+    word-wrap: break-word;
+}
+.bot-message {
+    align-self: flex-start;
+}
+.bot-message p {
+    background-color: var(--bot-msg-bg);
+}
+.user-message {
+    margin-left: auto;
+}
+.user-message p {
+    background-color: var(--user-msg-bg);
+    color: var(--user-msg-text);
+}
+#chat-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+#chat-input {
+    flex-grow: 1;
+    padding: 0.75rem;
+    font-size: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--app-bg-color);
+    color: var(--text-color);
+}
+#chat-form button {
+    padding: 0 1.5rem;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    cursor: pointer;
+}
+#chat-form button:hover {
+    background-color: var(--primary-hover);
 }
 
-#todo-list li .delete-btn:hover {
-    background: #c0392b;
-}
-
+/* Ad container */
 .ad-container {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #eee;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+    min-height: 100px; /* Ensure space for the ad */
 }

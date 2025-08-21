@@ -3,45 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemini To-Do List</title>
+    <title>Gemini AI To-Do & Chat</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Google AdSense Auto Ads -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6884566372095161"
      crossorigin="anonymous"></script>
 </head>
 <body>
 
-    <div class="app-container">
-        <header>
-            <img src="https://via.placeholder.com/150x50.png?text=bsd-white.png" alt="Logo" id="logo">
-            <h1>Gemini To-Do List</h1>
-        </header>
+    <div class="app-wrapper">
+        <!-- To-Do List Section -->
+        <div class="todo-container">
+            <header>
+                <div class="header-top">
+                    <img src="bsd-white.png" alt="Logo" id="logo">
+                    <h1>AI To-Do & Chat</h1>
+                </div>
+                <div class="theme-switcher">
+                    <label for="theme-toggle">다크 모드</label>
+                    <input type="checkbox" id="theme-toggle">
+                </div>
+            </header>
 
-        <form id="todo-form">
-            <input type="text" id="todo-input" placeholder="새로운 할 일을 입력하세요..." autocomplete="off">
-            <button type="submit">추가</button>
-        </form>
-        <div class="gemini-feature">
-            <button id="gemini-suggest-btn">✨ AI로 할 일 추천받기</button>
+            <form id="todo-form">
+                <input type="text" id="todo-input" placeholder="새로운 할 일을 입력하세요..." autocomplete="off">
+                <select id="todo-day">
+                    <option value="today">오늘</option>
+                    <option value="tomorrow">내일</option>
+                </select>
+                <button type="submit">추가</button>
+            </form>
+
+            <div class="todo-lists">
+                <div class="todo-section">
+                    <h2>오늘 할 일</h2>
+                    <ul id="today-list"></ul>
+                </div>
+                <div class="todo-section">
+                    <h2>내일 할 일</h2>
+                    <ul id="tomorrow-list"></ul>
+                </div>
+            </div>
+             <!-- Manual Ad Unit -->
+            <div class="ad-container">
+                <ins class="adsbygoogle"
+                    style="display:block"
+                    data-ad-client="ca-pub-6884566372095161"
+                    data-ad-slot="4085280663"
+                    data-ad-format="auto"
+                    data-full-width-responsive="true"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
         </div>
 
-        <ul id="todo-list">
-            <!-- To-do items will be injected here by JavaScript -->
-        </ul>
-
-        <!-- Google AdSense Manual Ad Unit -->
-        <div class="ad-container">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6884566372095161"
-                 crossorigin="anonymous"></script>
-            <ins class="adsbygoogle"
-                 style="display:block; text-align:center;"
-                 data-ad-layout="in-article"
-                 data-ad-format="fluid"
-                 data-ad-client="ca-pub-6884566372095161"
-                 data-ad-slot="4085280663"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+        <!-- Chatbot Section -->
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2>Gemini 챗봇</h2>
+                <span>무엇이든 물어보세요!</span>
+            </div>
+            <div class="chat-box" id="chat-box">
+                <!-- Chat messages will appear here -->
+                <div class="message bot-message">
+                    <p>안녕하세요! Gemini 입니다. 무엇을 도와드릴까요?</p>
+                </div>
+            </div>
+            <form id="chat-form">
+                <input type="text" id="chat-input" placeholder="메시지 입력..." autocomplete="off">
+                <button type="submit">전송</button>
+            </form>
         </div>
     </div>
 
