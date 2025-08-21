@@ -18,10 +18,16 @@ app.get('/', (req, res) => {
 // Check if the API key is loaded
 if (!process.env.GOOGLE_API_KEY) {
     console.error("GOOGLE_API_KEY is not set in the .env file.");
-    process.exit(1);
+    // Don't exit in production, just log the warning
+    if (process.env.NODE_ENV !== 'production') {
+        process.exit(1);
+    }
 }
 
-const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+let genAI;
+if (process.env.GOOGLE_API_KEY) {
+    genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY);
+}
 
 app.post('/api/gemini', async (req, res) => {
     try {
@@ -29,6 +35,10 @@ app.post('/api/gemini', async (req, res) => {
 
         if (!prompt) {
             return res.status(400).send({ error: 'Prompt is required' });
+        }
+
+        if (!genAI) {
+            return res.status(500).send({ error: 'AI service is not configured' });
         }
 
         const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
