@@ -1,273 +1,33 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap');
-
 :root {
-    --font-family: 'Noto Sans KR', sans-serif;
-    
-    /* Light Mode */
-    --bg-color: #F8F9FA;
-    --app-bg-color: #FFFFFF;
-    --text-color: #212529;
-    --subtext-color: #6C757D;
-    --border-color: #E9ECEF;
-    --primary-color: #007BFF;
-    --primary-hover: #0056b3;
-    --danger-color: #DC3545;
-    --danger-hover: #a71d2a;
-    --success-color: #28A745;
-    --todo-bg: #F8F9FA;
-    --shadow-color: rgba(0, 0, 0, 0.05);
-    --chat-bg: #F1F3F5;
-    --bot-msg-bg: #E9ECEF;
-    --user-msg-bg: #007BFF;
-    --user-msg-text: #FFFFFF;
-}
-
-body.dark-mode {
-    /* Dark Mode */
-    --bg-color: #121212;
-    --app-bg-color: #1E1E1E;
-    --text-color: #E0E0E0;
-    --subtext-color: #A0A0A0;
-    --border-color: #333333;
-    --primary-color: #0d6efd;
-    --primary-hover: #0b5ed7;
-    --danger-color: #d9534f;
-    --danger-hover: #c9302c;
-    --success-color: #5cb85c;
-    --todo-bg: #2C2C2C;
-    --shadow-color: rgba(255, 255, 255, 0.05);
-    --chat-bg: #2A2A2A;
-    --bot-msg-bg: #363636;
-    --user-msg-bg: #0d6efd;
-    --user-msg-text: #FFFFFF;
-}
-
-body {
-    font-family: var(--font-family);
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    margin: 0;
-    padding: 1rem;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.app-wrapper {
-    display: flex;
-    gap: 1.5rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    height: calc(100vh - 2rem);
-}
-
-.todo-container, .chat-container {
-    background-color: var(--app-bg-color);
-    border-radius: 12px;
-    box-shadow: 0 4px 12px var(--shadow-color);
-    padding: 1.5rem 2rem;
-    display: flex;
-    flex-direction: column;
-    transition: background-color 0.3s;
-}
-
-.todo-container {
-    flex: 2;
-    overflow-y: auto;
-}
-
-.chat-container {
-    flex: 1;
-    height: 100%;
-}
-
-/* Header */
-header {
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-}
-.header-top {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-#logo {
-    height: 40px;
-}
-header h1 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin: 0;
-}
-.theme-switcher {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-}
-
-/* Form */
-#todo-form {
-    display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-}
-#todo-input {
-    flex-grow: 1;
-    padding: 0.75rem;
-    font-size: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-}
-#todo-day, #todo-form button {
-    padding: 0 1rem;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    cursor: pointer;
-}
-#todo-form button {
-    background-color: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
-    font-weight: 500;
-}
-#todo-form button:hover {
-    background-color: var(--primary-hover);
-}
-
-/* To-Do Lists */
-.todo-lists {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-    overflow-y: auto;
-    padding-bottom: 1rem;
-}
-.todo-section h2 {
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-    border-bottom: 2px solid var(--primary-color);
-    padding-bottom: 0.5rem;
-}
-#today-list, #tomorrow-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-#today-list li, #tomorrow-list li {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.75rem;
-    background-color: var(--todo-bg);
-    border-radius: 8px;
-    margin-bottom: 0.5rem;
-}
-#today-list li.completed span, #tomorrow-list li.completed span {
-    text-decoration: line-through;
-    color: var(--subtext-color);
-}
-#today-list li span, #tomorrow-list li span {
-    flex-grow: 1;
-    cursor: pointer;
-}
-.edit-input {
-    flex-grow: 1;
-    padding: 0.25rem;
-    font-size: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    background-color: var(--app-bg-color);
-    color: var(--text-color);
-}
-.todo-actions button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.1rem;
-    color: var(--subtext-color);
-}
-.todo-actions .delete-btn { color: var(--danger-color); }
-.todo-actions .alarm-btn { color: var(--success-color); }
-
-/* Chat */
-.chat-container {
-    display: flex;
-    flex-direction: column;
-}
-.chat-header {
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-}
-.chat-header h2 { margin: 0; font-size: 1.5rem; }
-.chat-header span { font-size: 0.9rem; color: var(--subtext-color); }
-.chat-box {
-    flex-grow: 1;
-    overflow-y: auto;
-    padding: 0.5rem;
-    background-color: var(--chat-bg);
-    border-radius: 8px;
-}
-.message {
-    margin-bottom: 1rem;
-    max-width: 80%;
-}
-.message p {
-    padding: 0.75rem 1rem;
-    border-radius: 12px;
-    margin: 0;
-    word-wrap: break-word;
-}
-.bot-message {
-    align-self: flex-start;
-}
-.bot-message p {
-    background-color: var(--bot-msg-bg);
-}
-.user-message {
-    margin-left: auto;
-}
-.user-message p {
-    background-color: var(--user-msg-bg);
-    color: var(--user-msg-text);
-}
-#chat-form {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 1rem;
-}
-#chat-input {
-    flex-grow: 1;
-    padding: 0.75rem;
-    font-size: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: var(--app-bg-color);
-    color: var(--text-color);
-}
-#chat-form button {
-    padding: 0 1.5rem;
-    border-radius: 8px;
-    border: none;
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: 500;
-    cursor: pointer;
-}
-#chat-form button:hover {
-    background-color: var(--primary-hover);
-}
-
-/* Ad container */
-.ad-container {
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--border-color);
-    min-height: 100px; /* Ensure space for the ad */
-}
+    --bg: #0b0c10; --panel:#151821; --border:#25293a; --text:#e6e6ea;
+    --muted:#a7aab8; --pri:#6d7cff; --pri-2:#5564ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.5 system-ui, -apple-system, Segoe UI, Roboto; color:var(--text); background:var(--bg); }
+  .topbar { display:flex; justify-content:space-between; align-items:center; padding:12px 16px; border-bottom:1px solid var(--border); background:rgba(0,0,0,.2); position:sticky; top:0; backdrop-filter: blur(6px); }
+  .brand { display:flex; align-items:center; gap:10px; }
+  .logo { width:22px; height:22px; }
+  .muted { color:var(--muted); margin-left:6px; }
+  .grid { display:grid; gap:16px; grid-template-columns: 1fr 1fr 380px; padding:16px; max-width:1200px; margin:0 auto; }
+  @media (max-width: 1024px){ .grid{ grid-template-columns:1fr; } }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:16px; }
+  h2 { margin:4px 0 12px; font-size:18px; }
+  .row { display:flex; gap:8px; }
+  input { flex:1; background:#0e1118; color:var(--text); border:1px solid var(--border); border-radius:8px; padding:10px 12px; }
+  .remind { max-width: 220px; }
+  button { background:#1b1f2f; color:var(--text); border:1px solid var(--border); border-radius:8px; padding:10px 14px; cursor:pointer; }
+  button.primary{ background:var(--pri); border-color:transparent; }
+  button.primary:hover{ background:var(--pri-2); }
+  button.small{ padding:6px 10px; font-size:12px; }
+  button.ghost{ background:transparent; }
+  .list { list-style:none; padding:0; margin:10px 0 0; display:flex; flex-direction:column; gap:8px; }
+  .item { display:flex; justify-content:space-between; align-items:center; gap:8px; border:1px dashed var(--border); border-radius:10px; padding:10px; }
+  .item .title.done{ text-decoration: line-through; color:var(--muted); }
+  .actions { display:flex; align-items:center; gap:8px; }
+  .rem { color:var(--muted); font-size:12px; }
+  .chat { grid-row: 1 / span 2; }
+  .chatlog { height: 520px; overflow:auto; border:1px solid var(--border); border-radius:10px; padding:12px; background:#0f1320; margin-bottom:10px; }
+  .msg { margin-bottom:10px; }
+  .msg .who{ font-weight:600; margin-right:6px; }
+  .foot { color:var(--muted); text-align:center; padding:18px 0 28px; }
+  

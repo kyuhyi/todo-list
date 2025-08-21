@@ -10,6 +10,11 @@ const port = process.env.PORT || 3000;
 app.use(express.static('public'));
 app.use(express.json());
 
+// Serve index.html for root path
+app.get('/', (req, res) => {
+    res.sendFile(__dirname + '/public/index.html');
+});
+
 // Check if the API key is loaded
 if (!process.env.GOOGLE_API_KEY) {
     console.error("GOOGLE_API_KEY is not set in the .env file.");
