@@ -9,12 +9,48 @@
   .logo { height:32px; width:auto; }
   .muted { color:var(--muted); margin-left:6px; }
   .grid { display:grid; gap:16px; grid-template-columns: 1fr 1fr 380px; padding:16px; max-width:1200px; margin:0 auto; }
-  @media (max-width: 1024px){ .grid{ grid-template-columns:1fr; } }
+  @media (max-width: 1024px){ 
+    .grid{ grid-template-columns:1fr; } 
+    .chat { grid-row: auto; }
+  }
+  
+  /* 모바일 최적화 */
+  @media (max-width: 768px) {
+    .topbar { padding: 8px 12px; }
+    .grid { padding: 12px; gap: 12px; }
+    .card { padding: 12px; }
+    .row { flex-wrap: wrap; }
+    .remind-section { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .remind-section > * { width: 100%; max-width: none; }
+    .chatlog { height: 400px; }
+    input, select, button { padding: 12px; font-size: 16px; } /* iOS 줌 방지 */
+    .logo { height: 24px; }
+    .brand { gap: 6px; }
+  }
+  
+  @media (max-width: 480px) {
+    .grid { padding: 8px; gap: 8px; }
+    .card { padding: 8px; }
+    .topbar { padding: 6px 8px; }
+    .chatlog { height: 300px; }
+    h2 { font-size: 16px; margin: 2px 0 8px; }
+  }
   .card { background:var(--panel); border:1px solid var(--border); border-radius:12px; padding:16px; }
   h2 { margin:4px 0 12px; font-size:18px; }
   .row { display:flex; gap:8px; }
-  input { flex:1; background:#0e1118; color:var(--text); border:1px solid var(--border); border-radius:8px; padding:10px 12px; }
+  input, select { flex:1; background:#0e1118; color:var(--text); border:1px solid var(--border); border-radius:8px; padding:10px 12px; }
   .remind { max-width: 220px; }
+  .todo-form { margin-bottom: 16px; }
+  .remind-section { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    margin-top: 8px; 
+    flex-wrap: wrap;
+  }
+  .remind-label { font-size: 12px; color: var(--muted); white-space: nowrap; }
+  .remind-date { max-width: 140px; }
+  .remind-time { max-width: 80px; }
   button { background:#1b1f2f; color:var(--text); border:1px solid var(--border); border-radius:8px; padding:10px 14px; cursor:pointer; }
   button.primary{ background:var(--pri); border-color:transparent; }
   button.primary:hover{ background:var(--pri-2); }
@@ -33,4 +69,32 @@
   .chat-link:hover { text-decoration:underline; }
   .msg .who{ font-weight:600; margin-right:6px; }
   .foot { color:var(--muted); text-align:center; padding:18px 0 28px; }
+  
+  /* 광고 스타일 */
+  .ad-container { margin: 16px auto; max-width: 1200px; padding: 0 16px; }
+  .top-ad { border-bottom: 1px solid var(--border); padding-bottom: 16px; }
+  .bottom-ad { border-top: 1px solid var(--border); padding-top: 16px; }
+  
+  /* 사이드바 광고를 위한 body 레이아웃 */
+  body { position: relative; }
+  .sidebar-ad { 
+    position: fixed; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    width: 160px; 
+    z-index: 1000; 
+  }
+  .sidebar-ad.left { left: 10px; }
+  .sidebar-ad.right { right: 10px; }
+  
+  /* 대형 화면에서만 사이드바 광고 표시 */
+  @media (max-width: 1440px) {
+    .sidebar-ad { display: none; }
+  }
+  
+  /* 모바일 광고 최적화 */
+  @media (max-width: 768px) {
+    .ad-container { margin: 12px auto; padding: 0 12px; }
+    .top-ad, .bottom-ad { padding: 12px 0; }
+  }
   

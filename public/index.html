@@ -1,11 +1,55 @@
 <!doctype html>
 <html lang="ko" class="dark">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BSD Todo + Chat</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=0,maximum-scale=10,user-scalable=no">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="format-detection" content="telephone=no">
+  <meta http-equiv="imagetoolbar" content="no">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="Robots" content="index,follow"/>
+  <meta name="description" content="BSD AI to do list - 오늘 할일 목표 설정해봐요!">
+  <meta name="keywords" content="할일 목록, todo list, AI 챗봇, 일정 관리, 알림, 생산성, 목표 설정, 오늘 할일">
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="BSD AI to do list - 스마트한 할일 관리" />
+  <meta property="og:description" content="오늘 할일 목표 설정해봐요! AI 챗봇과 함께하는 스마트한 일정 관리" />
+  <meta property="og:site_name" content="BSD AI to do list" />
+  <meta property="og:image" content="/bsd-white.png" />
+  <meta property="og:url" content="https://bsd2.review.kr/" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="BSD AI to do list - 스마트한 할일 관리">
+  <meta name="twitter:description" content="오늘 할일 목표 설정해봐요! AI 챗봇과 함께하는 스마트한 일정 관리">
+  <meta name="twitter:image" content="/bsd-white.png">
+  <title>BSD AI to do list - 스마트한 할일 관리</title>
   <link rel="icon" href="/favicon.ico" />
+  <link rel="canonical" href="https://bsd2.review.kr/" />
   <link rel="stylesheet" href="/style.css" />
+  
+  <!-- 구글 애드센스 자동광고 -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6884566372095161"
+       crossorigin="anonymous"></script>
+  
+  <!-- 구조화된 데이터 (Schema.org) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "BSD AI to do list",
+    "description": "오늘 할일 목표 설정해봐요! AI 챗봇과 함께하는 스마트한 일정 관리",
+    "url": "https://bsd2.review.kr/",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "KRW"
+    },
+    "author": {
+      "@type": "Organization",
+      "name": "BSD"
+    }
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -16,15 +60,57 @@
     <button id="notifyPermBtn" class="ghost">🔔 알림 권한</button>
   </header>
 
+  <!-- 상단 광고 -->
+  <div class="ad-container top-ad">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6884566372095161"
+         crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+         style="display:block; text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-6884566372095161"
+         data-ad-slot="4085280663"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
+
   <main class="grid">
     <!-- 좌: 투두 -->
     <section class="card">
       <h2>오늘 할 일</h2>
 
-      <form id="formToday" class="row">
-        <input name="title" placeholder="할 일을 입력..." required />
-        <input type="datetime-local" name="remindAt" class="remind" />
-        <button class="primary">추가</button>
+      <form id="formToday" class="todo-form">
+        <div class="row">
+          <input name="title" placeholder="할 일을 입력..." required />
+          <button class="primary">추가</button>
+        </div>
+        <div class="remind-section">
+          <span class="remind-label">🔔 알림 설정:</span>
+          <input type="date" name="remindDate" class="remind-date" />
+          <select name="remindHour" class="remind-time">
+            <option value="">시</option>
+            <option value="09">09시</option>
+            <option value="10">10시</option>
+            <option value="11">11시</option>
+            <option value="12">12시</option>
+            <option value="13">13시</option>
+            <option value="14">14시</option>
+            <option value="15">15시</option>
+            <option value="16">16시</option>
+            <option value="17">17시</option>
+            <option value="18">18시</option>
+            <option value="19">19시</option>
+            <option value="20">20시</option>
+          </select>
+          <select name="remindMinute" class="remind-time">
+            <option value="">분</option>
+            <option value="00">00분</option>
+            <option value="15">15분</option>
+            <option value="30">30분</option>
+            <option value="45">45분</option>
+          </select>
+        </div>
       </form>
 
       <ul id="listToday" class="list"></ul>
@@ -33,10 +119,37 @@
     <section class="card">
       <h2>내일 할 일</h2>
 
-      <form id="formTomorrow" class="row">
-        <input name="title" placeholder="할 일을 입력..." required />
-        <input type="datetime-local" name="remindAt" class="remind" />
-        <button class="primary">추가</button>
+      <form id="formTomorrow" class="todo-form">
+        <div class="row">
+          <input name="title" placeholder="할 일을 입력..." required />
+          <button class="primary">추가</button>
+        </div>
+        <div class="remind-section">
+          <span class="remind-label">🔔 알림 설정:</span>
+          <input type="date" name="remindDate" class="remind-date" />
+          <select name="remindHour" class="remind-time">
+            <option value="">시</option>
+            <option value="09">09시</option>
+            <option value="10">10시</option>
+            <option value="11">11시</option>
+            <option value="12">12시</option>
+            <option value="13">13시</option>
+            <option value="14">14시</option>
+            <option value="15">15시</option>
+            <option value="16">16시</option>
+            <option value="17">17시</option>
+            <option value="18">18시</option>
+            <option value="19">19시</option>
+            <option value="20">20시</option>
+          </select>
+          <select name="remindMinute" class="remind-time">
+            <option value="">분</option>
+            <option value="00">00분</option>
+            <option value="15">15분</option>
+            <option value="30">30분</option>
+            <option value="45">45분</option>
+          </select>
+        </div>
       </form>
 
       <ul id="listTomorrow" class="list"></ul>
@@ -52,6 +165,21 @@
       </form>
     </aside>
   </main>
+
+  <!-- 하단 광고 -->
+  <div class="ad-container bottom-ad">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6884566372095161"
+         crossorigin="anonymous"></script>
+    <ins class="adsbygoogle"
+         style="display:block; text-align:center;"
+         data-ad-layout="in-article"
+         data-ad-format="fluid"
+         data-ad-client="ca-pub-6884566372095161"
+         data-ad-slot="4085280663"></ins>
+    <script>
+         (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+  </div>
 
   <footer class="foot">© BSD ToDo_List</footer>
 

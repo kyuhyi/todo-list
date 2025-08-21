@@ -52,7 +52,18 @@ function add(due){ // due: 'today' | 'tomorrow'
     e.preventDefault();
     const fd = new FormData(form);
     const title = (fd.get('title')||'').toString().trim();
-    const remindAt = fd.get('remindAt') ? new Date(fd.get('remindAt')).getTime() : null;
+    
+    // 날짜/시간 조합하여 알림 시간 생성
+    let remindAt = null;
+    const remindDate = fd.get('remindDate');
+    const remindHour = fd.get('remindHour');
+    const remindMinute = fd.get('remindMinute');
+    
+    if (remindDate && remindHour && remindMinute) {
+      const reminderDate = new Date(remindDate);
+      reminderDate.setHours(parseInt(remindHour), parseInt(remindMinute), 0, 0);
+      remindAt = reminderDate.getTime();
+    }
     if(!title) return;
 
     const now = new Date();
